@@ -4,16 +4,17 @@ const commentSlice = createSlice({
   name: "comments",
   initialState: {
     allComments: [],
+    currentComment: {},
     status: "",
     error: "",
   },
   reducers: {
-    searchСomments(state) {
-      return state;
+    error(state, action) {
+      state.error = action.payload;
     },
   },
 });
 
-export default commentSlice.reducers;
+export default commentSlice.reducer;
 
-export const { searchСomments } = commentSlice.actions;
+export const { error } = commentSlice.actions;

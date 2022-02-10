@@ -1,5 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+.layout {
+  background-color: #fff;
+}
+
 .container {
   max-width: 1200px;
+  width: 100%;
   padding: 0px 15px;
   margin: 0px auto;
+}
+
+.content {
+  padding-top: 20px;
 }
