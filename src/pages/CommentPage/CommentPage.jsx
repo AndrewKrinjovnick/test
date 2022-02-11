@@ -1,14 +1,25 @@
 import { Layout } from "antd";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Comment from "../../components/Comment";
+import { fetchOneComment } from "../../store/requests/comments";
 
 const CommentPage = () => {
-  const comment = useSelector((state) => state.comments.currentComment);
+  const { currentComment, error, status } = useSelector(
+    (state) => state.comments
+  );
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOneComment(id));
+  }, [dispatch, id]);
 
   return (
     <Layout.Content className="container content">
-      <Comment data={comment} />
+      <Comment data={currentComment} error={error} status={status} />
     </Layout.Content>
   );
 };

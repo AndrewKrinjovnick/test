@@ -2,7 +2,7 @@ import { Col, Layout, Row, Typography } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListComments from "../../components/ListComments";
-import { fetchComments } from "../../store/reducers/commentReducer";
+import { fetchComments } from "../../store/requests/comments";
 
 const MainPage = () => {
   const { allComments, status, error } = useSelector((state) => state.comments);

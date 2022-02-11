@@ -1,3 +1,3 @@
 export const CONFIG = {
-  baseUrl: "https://jsonplaceholder.typicode.com/comments",
+  baseUrl: "https://jsonplaceholder.typicode.com/comments/",
 };

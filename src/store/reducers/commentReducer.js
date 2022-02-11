@@ -1,17 +1,16 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "../../const/status";
-import { commentService } from "../../service/commentService";
+import { fetchComments, fetchOneComment } from "../requests/comments";
 
-export const fetchComments = createAsyncThunk(
-  "comments/fetchComments",
-  async (_, { rejectWithValue }) => {
-    try {
-      return await commentService.getComments();
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  }
-);
+const setError = (state, action) => {
+  state.status = STATUS.error;
+  state.error = action.payload;
+};
+
+const setStatusPending = (state) => {
+  state.status = STATUS.loading;
+  state.error = "";
+};
 
 const commentSlice = createSlice({
   name: "comments",
@@ -27,18 +26,18 @@ const commentSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchComments.pending]: (state) => {
-      state.status = STATUS.loading;
-      state.error = "";
-    },
+    [fetchComments.pending]: setStatusPending,
     [fetchComments.fulfilled]: (state, action) => {
       state.status = STATUS.success;
       state.allComments = action.payload;
     },
-    [fetchComments.rejected]: (state, action) => {
-      state.status = STATUS.error;
-      state.error = action.payload;
+    [fetchComments.rejected]: setError,
+    [fetchOneComment.pending]: setStatusPending,
+    [fetchOneComment.fulfilled]: (state, action) => {
+      state.status = STATUS.success;
+      state.currentComment = action.payload;
     },
+    [fetchOneComment.rejected]: setError,
   },
 });
 
