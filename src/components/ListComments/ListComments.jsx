@@ -9,10 +9,20 @@ const ListComments = ({ comments, status, error }) => {
     return <Result status="500" title="500" subTitle={error} />;
   }
 
+  if (!comments.length) {
+    return <h3>No match found</h3>;
+  }
+
   return (
     <List
       loading={status === STATUS.loading}
       itemLayout="horizontal"
+      pagination={
+        comments.length >= 10 && {
+          pageSize: 10,
+          showSizeChanger: false,
+        }
+      }
       dataSource={comments}
       renderItem={(item) => (
         <List.Item actions={[<Link to={`/${item.id}`}>view more</Link>]}>

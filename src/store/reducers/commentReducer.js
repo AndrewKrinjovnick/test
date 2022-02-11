@@ -17,12 +17,15 @@ const commentSlice = createSlice({
   initialState: {
     allComments: [],
     currentComment: {},
+    filteredComments: [],
     status: "",
     error: "",
   },
   reducers: {
-    error(state, action) {
-      state.error = action.payload;
+    findСomments(state, action) {
+      state.filteredComments = state.allComments.filter((comment) => {
+        return comment.email.includes(action.payload);
+      });
     },
   },
   extraReducers: {
@@ -30,6 +33,7 @@ const commentSlice = createSlice({
     [fetchComments.fulfilled]: (state, action) => {
       state.status = STATUS.success;
       state.allComments = action.payload;
+      state.filteredComments = action.payload;
     },
     [fetchComments.rejected]: setError,
     [fetchOneComment.pending]: setStatusPending,
@@ -43,4 +47,4 @@ const commentSlice = createSlice({
 
 export default commentSlice.reducer;
 
-export const { error } = commentSlice.actions;
+export const { findСomments } = commentSlice.actions;
