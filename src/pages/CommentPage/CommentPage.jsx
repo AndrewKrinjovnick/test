@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Comment from "../../components/Comment";
-import { fetchOneComment } from "../../store/requests/comments";
+import { fetchOneComment } from "../../store/requests/commentsApi";
 
 const CommentPage = () => {
   const { currentComment, error, status } = useSelector(

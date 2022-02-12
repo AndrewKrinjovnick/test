@@ -8,7 +8,10 @@ export const fetchComments = createAsyncThunk(
       const comments = await commentService.getComments();
       return {
         sort,
-        comments,
+        comments: comments.map((comment) => {
+          comment.isSelected = false;
+          return comment;
+        }),
       };
     } catch (err) {
       return rejectWithValue(err.message);

@@ -2,7 +2,7 @@ import { Col, Layout, Row, Typography, Input, Radio } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListComments from "../../components/ListComments";
-import { fetchComments } from "../../store/requests/comments";
+import { fetchComments } from "../../store/requests/commentsApi";
 import { findСomments, sortBy } from "../../store/reducers/commentReducer";
 import Splashscreen from "../../components/Splashscreen";
 
