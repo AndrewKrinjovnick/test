@@ -1,19 +1,15 @@
 import { Input, Radio } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { sortBy, findСomments } from "../../store/reducers/commentReducer";
-import { fetchComments } from "../../store/requests/commentsApi";
+import style from "./SearchComments.module.scss";
 
 const { Search } = Input;
 
 const SearchComments = ({ sort }) => {
   const dispatch = useDispatch();
   const [radioValue, setRadioValue] = useState(sort);
-
-  useEffect(() => {
-    dispatch(fetchComments(sort));
-  }, [dispatch, sort]);
 
   const searchHendler = (query) => {
     if (query.trim()) {
@@ -34,6 +30,7 @@ const SearchComments = ({ sort }) => {
   return (
     <>
       <Search
+        className={style.search}
         placeholder="input search text"
         allowClear
         enterButton="Search"

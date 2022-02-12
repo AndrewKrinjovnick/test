@@ -12,16 +12,20 @@ const MainPage = () => {
   const { filteredComments, status, error } = useSelector(
     (state) => state.comments
   );
+  const isVisited = localStorage.getItem("visited");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchComments(initRadioValue));
+    return () => {
+      localStorage.setItem("visited", true);
+    };
   }, [dispatch]);
 
   return (
     <>
-      <Splashscreen />
+      {!isVisited && <Splashscreen />}
       <Layout.Content className="container content">
         <Typography.Title>Test</Typography.Title>
         <SearchComments sort={initRadioValue} />
