@@ -3,9 +3,13 @@ import { commentService } from "../../service/commentService";
 
 export const fetchComments = createAsyncThunk(
   "comments/fetchComments",
-  async (_, { rejectWithValue }) => {
+  async (sort, { rejectWithValue }) => {
     try {
-      return await commentService.getComments();
+      const comments = await commentService.getComments();
+      return {
+        sort,
+        comments,
+      };
     } catch (err) {
       return rejectWithValue(err.message);
     }

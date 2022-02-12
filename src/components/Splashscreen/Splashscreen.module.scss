@@ -1,0 +1,48 @@
+.screen {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(36, 36, 36);
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  animation-name: sreen-animaion;
+  animation-duration: 1.4s;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
+
+  .header {
+    color: white;
+    font-size: 50px;
+    animation: text-animation 3s;
+  }
+}
+
+@keyframes text-animation {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sreen-animaion {
+  0% {
+    transform: translateY(0);
+  }
+
+  20% {
+    transform: translateY(-15%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}

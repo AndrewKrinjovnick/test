@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "../../const/status";
+import { sortString } from "../../utiles";
 import { fetchComments, fetchOneComment } from "../requests/comments";
 
 const setError = (state, action) => {
@@ -24,16 +25,28 @@ const commentSlice = createSlice({
   reducers: {
     findСomments(state, action) {
       state.filteredComments = state.allComments.filter((comment) => {
-        return comment.email.includes(action.payload);
+        return comment.email.includes(action.payload.query);
       });
+      const sortBy = action.payload.sort;
+      if (sortBy) {
+        state.filteredComments.sort(sortString(sortBy));
+      }
+    },
+    sortBy(state, action) {
+      const query = action.payload;
+      state.filteredComments.sort(sortString(query));
     },
   },
   extraReducers: {
     [fetchComments.pending]: setStatusPending,
     [fetchComments.fulfilled]: (state, action) => {
       state.status = STATUS.success;
-      state.allComments = action.payload;
-      state.filteredComments = action.payload;
+      state.allComments = action.payload.comments;
+      state.filteredComments = action.payload.comments;
+      const sortBy = action.payload.sort;
+      if (sortBy) {
+        state.filteredComments.sort(sortString(sortBy));
+      }
     },
     [fetchComments.rejected]: setError,
     [fetchOneComment.pending]: setStatusPending,
@@ -47,4 +60,4 @@ const commentSlice = createSlice({
 
 export default commentSlice.reducer;
 
-export const { findСomments } = commentSlice.actions;
+export const { findСomments, sortBy } = commentSlice.actions;
